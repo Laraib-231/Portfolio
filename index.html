@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Laraeb</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.globe.min.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        dark: '#0f172a',
+                        darker: '#020617'
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-reverse': 'float-reverse 6s ease-in-out infinite',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        'float-reverse': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617;
+            color: #f8fafc;
+        }
+        .vanta-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #6366f1, #8b5cf6, #d946ef);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .skill-bar {
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+        }
+    </style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+    <div id="vanta-bg" class="vanta-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 backdrop-blur-md bg-dark/80 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center space-x-2">
+                        <i data-feather="code" class="text-primary w-6 h-6"></i>
+                        <span class="text-xl font-bold text-white">Portfolio</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Home</a>
+                        <a href="#about" class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">About</a>
+                        <a href="#skills" class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Skills</a>
+                        <a href="#projects" class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Projects</a>
+                        <a href="#contact" class="text-gray-300 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Contact</a>
+                    </div>
+                </div> 
+                <div class="md:hidden">
+                    <button id="menu-toggle" class="text-gray-300 hover:text-primary focus:outline-none">
+                        <i data-feather="menu" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-darker border-t border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="text-gray-300 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#about" class="text-gray-300 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#skills" class="text-gray-300 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#projects" class="text-gray-300 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#contact" class="text-gray-300 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right" data-aos-duration="800">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6">
+                        Hi, I'm <span class="gradient-text">Laraib</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-gray-300 mb-6">
+                        Full Stack Developer
+                    </h2>
+                    <p class="text-gray-400 mb-8 max-w-lg">
+                        I build exceptional digital experiences that are fast, accessible, visually appealing, and responsive.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300 shadow-lg hover:shadow-primary/30">
+                            Contact Me
+                        </a>
+                        <a href="#projects" class="border border-gray-700 hover:border-primary text-gray-300 hover:text-primary px-6 py-3 rounded-lg font-medium transition-colors duration-300">
+                            View Projects
+                        </a>
+                    </div>
+                    <div class="mt-8 flex space-x-4">
+                        <a href="https://github.com/Laraib-231" class="text-gray-400 hover:text-primary transition-colors duration-300">
+                            <i data-feather="github" class="w-6 h-6"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/laraeb-rauf-103421380/" class="text-gray-400 hover:text-primary transition-colors duration-300">
+                            <i data-feather="linkedin" class="w-6 h-6"></i>
+                        </a>
+                        <a href="https://x.com/Laraeb_ch" class="text-gray-400 hover:text-primary transition-colors duration-300">
+                            <i data-feather="twitter" class="w-6 h-6"></i>
+                        </a>
+                    </div>
+                </div>
+                <div data-aos="fade-left" data-aos-duration="800" class="relative">
+                    <div class="w-full max-w-md mx-auto">
+                        <div class="relative">
+                            <div class="absolute -inset-4 bg-gradient-to-r from-primary to-purple-500 rounded-2xl blur opacity-75 animate-pulse-slow"></div>
+                            <div class="relative bg-dark border border-gray-800 rounded-2xl overflow-hidden">
+                                <img src="http://static.photos/technology/640x360/42" alt="Developer" class="w-full h-auto object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    <span class="gradient-text">About</span> Me
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right" class="relative">
+                    <div class="w-full max-w-md mx-auto">
+                        <div class="relative">
+                            <div class="absolute -inset-4 bg-gradient-to-r from-primary to-purple-500 rounded-2xl blur opacity-75 animate-pulse-slow"></div>
+                            <div class="relative bg-dark border border-gray-800 rounded-2xl overflow-hidden">
+                                <img src="http://static.photos/workspace/640x360/123" alt="About Me" class="w-full h-auto object-cover">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <h3 class="text-2xl font-bold mb-4">Who am I?</h3>
+                    <p class="text-gray-400 mb-6">
+                        I'm a passionate Full Stack Developer with 1.5+ years of experience creating modern web applications. I specialize in JavaScript technologies across the whole stack (React.js, Node.js, Express, MongoDB).
+                    </p>
+                    <p class="text-gray-400 mb-6">
+                        My approach combines technical expertise with an eye for design to deliver high-quality, scalable solutions that meet both business and user needs.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="flex items-center">
+                            <i data-feather="check-circle" class="text-primary mr-2"></i>
+                            <span class="text-gray-300">Problem Solving</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i data-feather="check-circle" class="text-primary mr-2"></i>
+                            <span class="text-gray-300">Clean Code</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i data-feather="check-circle" class="text-primary mr-2"></i>
+                            <span class="text-gray-300">Responsive Design</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i data-feather="check-circle" class="text-primary mr-2"></i>
+                            <span class="text-gray-300">Performance</span>
+                        </div>
+                    </div>
+                    <a href="Laraib (1).pdf" class="inline-flex items-center text-primary hover:text-primary/80 transition-colors duration-300">
+                        Download CV <i data-feather="download" class="ml-2 w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-20 bg-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    My <span class="gradient-text">Skills</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div data-aos="fade-right">
+                    <h3 class="text-xl font-bold mb-6 text-gray-300">Frontend Development</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">HTML/CSS</span>
+                                <span class="text-gray-400">95%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="skill-bar rounded-full h-2" style="width: 95%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">JavaScript</span>
+                                <span class="text-gray-400">90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="skill-bar rounded-full h-2" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">React.js</span>
+                                <span class="text-gray-400">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="skill-bar rounded-full h-2" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <h3 class="text-xl font-bold mb-6 text-gray-300">Backend Development</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">C++</span>
+                                <span class="text-gray-400">88%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="skill-bar rounded-full h-2" style="width: 88%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">Python</span>
+                                <span class="text-gray-400">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="skill-bar rounded-full h-2" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="text-gray-300">MongoDB</span>
+                                <span class="text-gray-400">80%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 rounded-full h-2">
+                                <div class="skill-bar rounded-full h-2" style="width: 80%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div data-aos="zoom-in" data-aos-delay="100" class="bg-darker border border-gray-800 rounded-xl p-6 flex flex-col items-center hover:border-primary transition-colors duration-300">
+                    <i data-feather="code" class="text-primary w-10 h-10 mb-4"></i>
+                    <h4 class="text-lg font-semibold text-gray-300 mb-2">Clean Code</h4>
+                    <p class="text-gray-400 text-center">Writing maintainable and scalable code</p>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="200" class="bg-darker border border-gray-800 rounded-xl p-6 flex flex-col items-center hover:border-primary transition-colors duration-300">
+                    <i data-feather="smartphone" class="text-primary w-10 h-10 mb-4"></i>
+                    <h4 class="text-lg font-semibold text-gray-300 mb-2">Responsive</h4>
+                    <p class="text-gray-400 text-center">Mobile-first approach for all devices</p>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="300" class="bg-darker border border-gray-800 rounded-xl p-6 flex flex-col items-center hover:border-primary transition-colors duration-300">
+                    <i data-feather="zap" class="text-primary w-10 h-10 mb-4"></i>
+                    <h4 class="text-lg font-semibold text-gray-300 mb-2">Fast</h4>
+                    <p class="text-gray-400 text-center">Optimized performance and speed</p>
+                </div>
+                <div data-aos="zoom-in" data-aos-delay="400" class="bg-darker border border-gray-800 rounded-xl p-6 flex flex-col items-center hover:border-primary transition-colors duration-300">
+                    <i data-feather="search" class="text-primary w-10 h-10 mb-4"></i>
+                    <h4 class="text-lg font-semibold text-gray-300 mb-2">SEO</h4>
+                    <p class="text-gray-400 text-center">Search engine optimized websites</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-darker">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    My <span class="gradient-text">Projects</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div data-aos="fade-up" data-aos-delay="100" class="bg-dark border border-gray-800 rounded-xl overflow-hidden card-hover">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="http://static.photos/technology/640x360/101" alt="Project 1" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <i data-feather="folder" class="text-primary mr-2"></i>
+                            <h3 class="text-xl font-bold text-gray-300">E-commerce Platform</h3>
+                        </div>
+                        <p class="text-gray-400 mb-4">
+                            A full-featured e-commerce platform with payment integration, user authentication, and admin dashboard.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">React</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Node.js</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">MongoDB</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/Laraib-231" class="text-gray-400 hover:text-primary transition-colors duration-300">
+                                <i data-feather="github" class="w-5 h-5"></i>
+                            </a>
+                            <a href="amazon clone/index.html" class="text-gray-400 hover:text-primary transition-colors duration-300">
+                                <i data-feather="external-link" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div data-aos="fade-up" data-aos-delay="200" class="bg-dark border border-gray-800 rounded-xl overflow-hidden card-hover">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="http://static.photos/technology/640x360/102" alt="Project 2" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <i data-feather="folder" class="text-primary mr-2"></i>
+                            <h3 class="text-xl font-bold text-gray-300">Task Management App</h3>
+                        </div>
+                        <p class="text-gray-400 mb-4">
+                            A productivity application for managing tasks with drag-and-drop functionality and team collaboration features.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Vue.js</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Firebase</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">TailwindCSS</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/Laraib-231" class="text-gray-400 hover:text-primary transition-colors duration-300">
+                                <i data-feather="github" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">
+                                <i data-feather="external-link" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div data-aos="fade-up" data-aos-delay="300" class="bg-dark border border-gray-800 rounded-xl overflow-hidden card-hover">
+                    <div class="relative overflow-hidden h-48">
+                        <img src="http://static.photos/technology/640x360/103" alt="Project 3" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex items-center mb-2">
+                            <i data-feather="folder" class="text-primary mr-2"></i>
+                            <h3 class="text-xl font-bold text-gray-300">Social Media Dashboard</h3>
+                        </div>
+                        <p class="text-gray-400 mb-4">
+                            Analytics dashboard for social media managers with real-time data visualization and reporting.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">React</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">D3.js</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Express</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://github.com/Laraib-231" class="text-gray-400 hover:text-primary transition-colors duration-300">
+                                <i data-feather="github" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-primary transition-colors duration-300">
+                                <i data-feather="external-link" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12" data-aos="fade-up">
+                <a href="#Home" class="inline-flex items-center border border-gray-700 hover:border-primary text-gray-300 hover:text-primary px-6 py-3 rounded-lg font-medium transition-colors duration-300">
+                    View All Projects <i data-feather="arrow-right" class="ml-2 w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-dark">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">
+                    Get In <span class="gradient-text">Touch</span>
+                </h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-primary to-purple-500 mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-6 text-gray-300">Contact Information</h3>
+                    <p class="text-gray-400 mb-8">
+                        Feel free to reach out to me for any questions or opportunities. I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-darker p-3 rounded-lg mr-4">
+                                <i data-feather="mail" class="text-primary w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-gray-300 font-medium mb-1">Email</h4>
+                                <a href="mailto:Laraeb.official@gmail.com" class="text-gray-400 hover:text-primary transition-colors duration-300">Laraeb.Official@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-darker p-3 rounded-lg mr-4">
+                                <i data-feather="phone" class="text-primary w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-gray-300 font-medium mb-1">Phone</h4>
+                                <a href="tel:+1923067938404" class="text-gray-400 hover:text-primary transition-colors duration-300">+92 306 7938404</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-darker p-3 rounded-lg mr-4">
+                                <i data-feather="map-pin" class="text-primary w-5 h-5"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-gray-300 font-medium mb-1">Location</h4>
+                                <p class="text-gray-400">Okara, Punjab, Pakistan</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex space-x-4">
+                        <a href="https://github.com/Laraib-231" class="bg-darker p-3 rounded-lg text-gray-400 hover:text-primary hover:bg-gray-800 transition-colors duration-300">
+                            <i data-feather="github" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/laraeb-rauf-103421380/" class="bg-darker p-3 rounded-lg text-gray-400 hover:text-primary hover:bg-gray-800 transition-colors duration-300">
+                            <i data-feather="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://x.com/Laraeb_ch" class="bg-darker p-3 rounded-lg text-gray-400 hover:text-primary hover:bg-gray-800 transition-colors duration-300">
+                            <i data-feather="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.instagram.com/laraib__ch658/" class="bg-darker p-3 rounded-lg text-gray-400 hover:text-primary hover:bg-gray-800 transition-colors duration-300">
+                            <i data-feather="instagram" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                <div data-aos="fade-left">
+                    <form class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block text-gray-300 mb-2">Your Name</label>
+                                <input type="text" id="name" class="w-full bg-darker border border-gray-800 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-300 mb-2">Your Email</label>
+                                <input type="email" id="email" class="w-full bg-darker border border-gray-800 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-gray-300 mb-2">Subject</label>
+                            <input type="text" id="subject" class="w-full bg-darker border border-gray-800 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300" placeholder="Let me know how I can help you">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-gray-300 mb-2">Your Message</label>
+                            <textarea id="message" rows="5" class="w-full bg-darker border border-gray-800 rounded-lg px-4 py-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors duration-300" placeholder="Hi, I would like to..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300 shadow-lg hover:shadow-primary/30 flex items-center justify-center">
+                            Send Message <i data-feather="send" class="ml-2 w-4 h-4"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-darker border-t border-gray-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center mb-6 md:mb-0">
+                    <a href="#" class="flex items-center space-x-2">
+                        <i data-feather="code" class="text-primary w-6 h-6"></i>
+                        <span class="text-xl font-bold text-white">Portfolio</span>
+                    </a>
+                </div>
+                <div class="flex space-x-6 mb-6 md:mb-0">
+                    <a href="#home" class="text-gray-400 hover:text-primary transition-colors duration-300">Home</a>
+                    <a href="#about" class="text-gray-400 hover:text-primary transition-colors duration-300">About</a>
+                    <a href="#skills" class="text-gray-400 hover:text-primary transition-colors duration-300">Skills</a>
+                    <a href="#projects" class="text-gray-400 hover:text-primary transition-colors duration-300">Projects</a>
+                    <a href="#contact" class="text-gray-400 hover:text-primary transition-colors duration-300">Contact</a>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="https://github.com/Laraib-231" class="bg-gray-800 p-3 rounded-full text-gray-400 hover:text-primary hover:bg-gray-700 transition-colors duration-300">
+                        <i data-feather="github" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://www.linkedin.com/in/laraeb-rauf-103421380/" class="bg-gray-800 p-3 rounded-full text-gray-400 hover:text-primary hover:bg-gray-700 transition-colors duration-300">
+                        <i data-feather="linkedin" class="w-5 h-5"></i>
+                    </a>
+                    <a href="https://x.com/Laraeb_ch" class="bg-gray-800 p-3 rounded-full text-gray-400 hover:text-primary hover:bg-gray-700 transition-colors duration-300">
+                        <i data-feather="twitter" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
+                <p>&copy; 2023 Portfolio. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="fixed bottom-8 right-8 bg-primary text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300">
+        <i data-feather="arrow-up" class="w-5 h-5"></i>
+    </button>
+
+    <script>
+        // Initialize animations
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Initialize Vanta.js background
+        VANTA.GLOBE({
+            el: "#vanta-bg",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            color: 0x6366f1,
+            backgroundColor: 0x020617,
+            size: 0.8
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = menuToggle.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                feather.replace();
+            } else {
+                feather.replace();
+            }
+        });
+
+        // Back to top button
+        const backToTopButton = document.getElementById('back-to-top');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTopButton.classList.remove('opacity-0', 'invisible');
+                backToTopButton.classList.add('opacity-100', 'visible');
+            } else {
+                backToTopButton.classList.remove('opacity-100', 'visible');
+                backToTopButton.classList.add('opacity-0', 'invisible');
+            }
+        });
+        
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+
+        // Replace feather icons
+        feather.replace();
+    </script>
+</body>
+</html>
